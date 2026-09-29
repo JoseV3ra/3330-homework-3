@@ -98,7 +98,100 @@ $(function () {
     // *********************************************************************
     // Do not modify the JS objects above. You will write your code below.
     // *********************************************************************
+    $("#username").text(username);
+$(".revenue-amt").text(revenueAmt);
+$("#customer-num").text(customerNum);
+$("#orders-amt").text(ordersAmt);
+$("#issues-amt").text(issuesAmt);
+$("#notification-num").text(notifAmt);
 
+sales.forEach(function (sale) {
+    const row = $("<tr>");
+
+    row.append($("<td>").text(sale.product));
+    row.append($("<td>").text(sale.quantity));
+    row.append($("<td>").text(sale.revenue));
+
+    $("#salesTableBody").append(row);
+});
+
+customers.forEach(function (customer) {
+    const row = $("<tr>");
+
+    const status = $("<span>")
+        .addClass("status")
+        .addClass("status-" + customer.status.toLowerCase())
+        .text(customer.status);
+
+    row.append($("<td>").text(customer.name));
+    row.append($("<td>").text(customer.email));
+    row.append($("<td>").append(status));
+    row.append($("<td>").text(customer.joined));
+
+    $("#customerTableBody").append(row);
+});
+
+activities.forEach(function (activity) {
+    $("#activity-list").append(
+        $("<li>").text(activity.message)
+    );
+});
+
+messages.forEach(function (message) {
+    $("#system-status-list").append(
+        $("<li>").text(message.messsage)
+    );
+});
+
+notifications.forEach(function (notification) {
+    $("#notifications-list").append(
+        $("<li>").text(notification.messsage)
+    );
+});
+
+tasks.forEach(function (task) {
+    $("#tasks-list").append(
+        $("<li>").text(task.messsage)
+    );
+});
+
+$("button").button();
+
+$("#dashboardTabs").tabs();
+
+$("#customerDialog").dialog({
+    autoOpen: false,
+    modal: true,
+    width: 450,
+    buttons: {
+        "Create Customer": function () {
+            var name = $("#customerName").val();
+            var email = $("#customerEmail").val();
+
+            if (!name || !email) {
+                alert("Please enter a name and email.");
+                return;
+            }
+
+            alert("Customer created: " + name);
+            $(this).dialog("close");
+        },
+        "Cancel": function () {
+            $(this).dialog("close");
+        }
+    }
+});
+
+$("#accordion").accordion({
+    collapsible: true,
+    heightStyle: "content"
+});
+
+$("#newCustomerButton").on("click", function () {
+    $("#customerDialog").dialog("open");
+});
+
+$("#customerDate").datepicker();
 
 
        
